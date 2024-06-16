@@ -1,7 +1,8 @@
 from Token import TOKEN
 
-from keyboards import allow_usage
+from keyboards import *
 
+from db_manager import Manager
 import asyncio
 import logging
 import sys
@@ -9,7 +10,7 @@ import sys
 from aiogram import Bot, Dispatcher, html
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
-from aiogram.filters import CommandStart
+from aiogram.filters import CommandStart, Command
 from aiogram.types import Message, CallbackQuery
 
 dp = Dispatcher()
@@ -19,14 +20,19 @@ dp = Dispatcher()
 async def command_start_handler(message: Message) -> None:
     await message.answer(f"Hello, {html.bold(message.from_user.full_name)}! \nSubscribe to the channel to use the bot", reply_markup=allow_usage)
 
+@dp.message(Command("click"))
+async def get_webapp(message: Message):
+    await message.answer(f"👇👇👇 CLICK IT 👇👇👇", reply_markup=start_clicking)
+
 
 @dp.callback_query()
 async def check_subscription(query: CallbackQuery):
     user_id = query.from_user.id
     try:
-        member = await bot.get_chat_member(chat_id=-1002242286490, user_id=user_id)
+        member = await bot.get_chat_member(chat_id=-1002175049278, user_id=user_id)
         if member.status in ["member", "administrator", "creator"]:
             await query.answer("You are subscribed to the channel!")
+            await get_webapp(query.message)
         else:
             await query.answer("You are not subscribed to the channel. Please subscribe to access this feature.")
     except Exception as e:
