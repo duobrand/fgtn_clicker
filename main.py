@@ -1,11 +1,10 @@
-from Token import TOKEN
-
 from keyboards import *
 
 from db_manager import Manager
 import asyncio
 import logging
 import sys
+from os import getenv
 
 from aiogram import Bot, Dispatcher, html
 from aiogram.client.default import DefaultBotProperties
@@ -15,6 +14,7 @@ from aiogram.types import Message, CallbackQuery
 
 dp = Dispatcher()
 
+TOKEN = getenv("TOKEN")
 
 @dp.message(CommandStart())
 async def command_start_handler(message: Message) -> None:

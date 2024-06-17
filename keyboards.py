@@ -15,7 +15,7 @@ allow_usage = InlineKeyboardMarkup(
 start_clicking = InlineKeyboardMarkup(
     inline_keyboard = [
         [
-            InlineKeyboardButton(text="START CLICKING", web_app=WebAppInfo(url="https://google.com"))
+            InlineKeyboardButton(text="START CLICKING", web_app=WebAppInfo(url="https://duobrand.github.io/fgtn_clicker_frontend/"))
         ],
     ]
 )
